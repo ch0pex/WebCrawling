@@ -1,6 +1,3 @@
+dict = {"titulo": "tutfsdfsaf","año": 2019, "mes": 12, "dia": 31}
 
-string = "  Director: "
-
-
-if "Director" in string:
-    print("yes")
+print(dict)

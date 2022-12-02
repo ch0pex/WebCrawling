@@ -1,52 +1,32 @@
 import openpyxl
 import requests
 from bs4 import BeautifulSoup
+import time 
+import threading
 
 
 EXCEL_PATH = "MovieGenreIGC_v3.xlsx"
 JSON_PATH = "data.json"
 
-def get_storyline(): 
-    storyline = imdb.find_all("td", {"class":"ipl-zebra-list__label"})
-    for element in storyline: 
-        if element.text == "Plot Summary":
-            plot_summary = element.find_next_sibling("td").find("p").text.strip()
-            
-        elif element.text == "Genres":
-            ahrefs = element.find_next_sibling("td").find_all("a")         
-            genres = [ahref.text for ahref in ahrefs]       
-        
-        elif element.text == "Country": 
-            country = element.find_next_sibling("td").find("a").text
-                    
-        elif element.text == "Language":
-            ahrefs = element.find_next_sibling("td").find_all("a")         
-            lenguages = [ahref.text for ahref in ahrefs][1:]
-        
-        elif element.text == "Runtime":
-            runtime = element.find_next_sibling("td").find("li").text.strip()
-    
-    print(runtime)
+def main(start, end):
+     for row in sheet.iter_rows(min_row=start, max_col=end, max_row = 20,values_only=True):
+        pass
+
 
 
 
 
 if __name__ == "__main__":
+    start = time.time()
     wb = openpyxl.load_workbook(EXCEL_PATH)
     sheet = wb.active
 
-
-    for row in sheet.iter_rows(min_row=2, max_col=2, max_row = 20,values_only=True):
-
-        imdb = BeautifulSoup(requests.get(row[1] + "/reference").text , "html.parser")
+    thread1 = threading.Thread(target=main, args=(1, 1000))
+        
     
-        # get_storyline()
-    
-        
+    #print(time.time() - start)
 
- 
-        
-        
+
        
     
 
@@ -64,7 +44,7 @@ if __name__ == "__main__":
             "poster": imdb.find("img", {"alt" :"Poster"}).get_attribute_list("src")[0]
             "director": crew = imdb.findAll("div", {"class":"titlereference-overview-section"})
                         for element in crew: 
-                            if "Director" in element.text:
+                            if "Director" in element.text:cle
                                 aux_list = element.findAll("a")
                                 directors = [z.text for z in aux_list]
                                 break,
