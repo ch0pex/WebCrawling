@@ -9,6 +9,7 @@ class Film:
 
         self.id = id
         self.title = self.__get_title()
+        self.rating = self.__get_rating()
         self.year = self.__get_year()
         self.director = self.__get_director()
         self.writers = self.__get_writers()
@@ -21,13 +22,24 @@ class Film:
         self.sinopsis = None 
         self.__get_storyline()
         self.__get_sinopsis()
-        
+     
     
+     
+     
+    def __str__(self):
+        index = {"index":{"_index":"imdb","_type":"film","_id":self.id}}
+        content = {}
+        for key, value in self.__dict__.items():
+            if value is not None and key != "id" and "__" not in key:
+                content[key] = value        
+        return str(index) +"\n"+ str(content)  
+
+
     def __get_title(self):
-        return  self.reference.select("title")[0].text[:-25].split(" (")[0]
+        return  self.__reference.select("title")[0].text[:-25].split(" (")[0]
 
     def __get_year(self):
-        return self.reference.select("title")[0].text[:-25].split(" (")[1]
+        return self.__reference.select("title")[0].text[:-25].split(" (")[1]
     
     def __get_director(self): 
         crew = self.__reference.findAll("div", {"class":"titlereference-overview-section"})
@@ -47,7 +59,7 @@ class Film:
         
 
     def __get_storyline(self): 
-        storyline = self.reference.find_all("td", {"class":"ipl-zebra-list__label"})
+        storyline = self.__reference.find_all("td", {"class":"ipl-zebra-list__label"})
         for element in storyline: 
             if element.text == "Genres":
                 ahrefs = element.find_next_sibling("td").find_all("a")         
@@ -70,7 +82,7 @@ class Film:
         else:
             content = self.__sinopsis.find("ul", {"id":"plot-summaries-content"})
             elems = content.findAll("li")
-            self.summary = [z.text for z in elems]
+            self.summary = [z.text.strip() for z in elems]
             # COntemplar crear solo un atributo y listas como texto concatenado
 
-
+    def __get_rating(self): ...

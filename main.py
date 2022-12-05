@@ -1,18 +1,19 @@
 import openpyxl
 import requests
-from bs4 import BeautifulSoup
 import time 
 import threading
 
+from bs4 import BeautifulSoup
+from film import Film
 
 EXCEL_PATH = "MovieGenreIGC_v3.xlsx"
 JSON_PATH = "data.json"
 
 def main(start, end):
-     for row in sheet.iter_rows(min_row=start, max_col=end, max_row = 20,values_only=True):
-        pass
-
-
+     for id, url in enumerate(sheet.iter_rows(min_row=start, max_col=end, max_row = 20,values_only=True)):
+        film = Film(url[1], id)
+        print(film)
+        
 
 
 
@@ -20,9 +21,8 @@ if __name__ == "__main__":
     start = time.time()
     wb = openpyxl.load_workbook(EXCEL_PATH)
     sheet = wb.active
-
-    thread1 = threading.Thread(target=main, args=(1, 1000))
-        
+    thread1 = threading.Thread(target=main, args=(2, 20))
+    thread1.start()
     
     #print(time.time() - start)
 
@@ -54,4 +54,10 @@ if __name__ == "__main__":
                         actors = [z.text for z in lista]
         }
         
-        print(film)"""
+        print(film)
+        
+        
+        
+        
+        
+"""
