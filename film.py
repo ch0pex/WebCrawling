@@ -41,7 +41,7 @@ class Film:
         return  self.__reference.select("title")[0].text[:-25].split(" (")[0]
 
     def __get_year(self):
-        return self.__reference.select("title")[0].text[:-25].split(" (")[1]
+        return int(self.__reference.select("title")[0].text[:-25].split(" (")[1])
     
     def __get_director(self): 
         crew = self.__reference.findAll("div", {"class":"titlereference-overview-section"})
@@ -72,7 +72,7 @@ class Film:
                         
             elif element.text == "Language":
                 ahrefs = element.find_next_sibling("td").find_all("a")         
-                self.lenguages = [ahref.text for ahref in ahrefs][1:]
+                self.lenguages = [ahref.text for ahref in ahrefs]
             
             elif element.text == "Runtime":
                 self.runtime = element.find_next_sibling("td").find("li").text.strip()
