@@ -2,6 +2,7 @@ import openpyxl
 import requests
 import time 
 import threading
+import json
 
 from bs4 import BeautifulSoup
 from film import Film
@@ -12,7 +13,14 @@ JSON_PATH = "data.json"
 def main(start, end):
      for id, url in enumerate(sheet.iter_rows(min_row=start, max_col=end, max_row = 20,values_only=True)):
         film = Film(url[1], id)
-        print(film)
+        index, content = film.to_dict()
+        with open(JSON_PATH, "a") as f:
+            json.dump(index, f)
+            f.write("\n")
+            json.dump(content, f)
+            f.write("\n")
+            
+            
         
 
 

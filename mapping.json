@@ -1,6 +1,6 @@
 
   curl -s -H "Content-Type: application/json" -XPOST localhost:9200/imdb/film/_bulk?pretty --data-binary "@D:/Alvaro/Universidad/4/Multimedia/MultimediaPractica2/data.json" -d'
-  {
+{
     'mappings': {
       'properties': {
         'title':    { 'type': 'integer' },
@@ -16,8 +16,9 @@
         'summary':  { 'type': 'text'    }
       }
     }
-  }'
+}'
 
+{'mappings':{'properties':{'title':{'type':'integer'},'rating':{'type':'float'},'year':{'type':'keyword'},'directors':{'type':'text'},'writers':{'type':'text'},'actors':{'type':'text'},'genres':{'type':'keyword'},'country':{'type':'keyword'},'language':{'type':'keyword'},'runtime':{'type':'integer'},'summary':{'type':'text'}}}}
 
 
 curl -X PUT "localhost:9200/nombre_indice?pretty" -H 'Content-Type:
@@ -42,3 +43,8 @@ application/json' -d'
   }
   }
 }
+
+
+
+curl -s -H "Content-Type: application/json" -XPOST localhost:9200/imdb/film/_bulk?pretty --data-binary "@data.json"
+curl -s -H "Content-Type: application/json" -XPOST localhost:9200/imdb/_doc/_bulk?pretty --data-binary "@data.json"

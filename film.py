@@ -26,13 +26,15 @@ class Film:
     
      
      
-    def __str__(self):
+    def to_dict(self):
         index = {"index":{"_index":"imdb","_type":"film","_id":self.id}}
         content = {}
+    
         for key, value in self.__dict__.items():
             if value is not None and key != "id" and "__" not in key:
-                content[key] = value        
-        return str(index) +"\n"+ str(content)  
+                content[key] = value 
+             
+        return index, content 
 
 
     def __get_title(self):
