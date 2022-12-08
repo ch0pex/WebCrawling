@@ -1,3 +1,4 @@
-dict = {"titulo": "tutfsdfsaf","año": 2019, "mes": 12, "dia": 31}
+runtime = "106 min"
 
-print(dict)
+
+print(runtime[:-4])
