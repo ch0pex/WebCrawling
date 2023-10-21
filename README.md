@@ -1,1 +1,1 @@
-# Web Crawling example with Python
+# Web Scrapping example with Python
